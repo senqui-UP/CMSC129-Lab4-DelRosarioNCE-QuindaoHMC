@@ -1,7 +1,10 @@
 {
   "name": "hopecore",
   "private": true,
-  "workspaces": ["client", "server"],
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=server\" \"npm run dev --workspace=client\"",
     "test:unit": "jest --config jest.unit.config.js",
@@ -9,5 +12,8 @@
     "test:e2e": "cypress run",
     "test": "npm run test:unit && npm run test:integration",
     "lint": "eslint . --ext .js,.jsx"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
   }
 }
