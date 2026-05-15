@@ -1,4 +1,4 @@
-<h1 align="center">Unsent Wall</h1>
+<h1 align="center">_hopecore_</h1>
 
 ---
 ## 📖 Overview   
@@ -10,13 +10,13 @@
 - **System / E2E Testing**: Cypress
 
   <p align="center">
-    Inspired by the Unsent Project and Confession/Freedom Walls, the Unsent Wall is a web application where users can submit anonymous notes/confessions for anyone in the site to see. Users can also edit and delete their submissions. Created in MERN using a testing driven development.
+    Inspired by the Unsent Project, hopecore is a web archive of hopeful anonymous messages to send to yourself or others. Users can also edit and delete their submissions. Created in MERN using a testing driven development.
   </p>
 
 #### User Stories
 
-* As a user, I want to anonymously submit confessions so that I can share them without it being obvious it was from me.
-* As a user, I want to browse all of the previous submissions so that I can see all of the previous confessions by others.
+* As a user, I want to anonymously submit confessions so that I can share more kindness to the world.
+* As a user, I want to browse all of the previous submissions so that I can see all of the previous messages by others.
 * As a user, I want to edit my submissions so that I can update it with new information.
 
 ---
