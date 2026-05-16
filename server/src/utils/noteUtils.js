@@ -1,4 +1,4 @@
-function validateConfession(text) {
+function validateNote(text) {
   if (!text || text.trim() === '') {
     throw new Error('Oops, you forgot to write your message! (*/ω＼*)')
   }
@@ -7,11 +7,11 @@ function validateConfession(text) {
   }
 }
 
-function formatConfession(text) {
+function formatNote(text) {
   return {
     text,
     createdAt: new Date().toISOString(),
   }
 }
 
-module.exports = { validateConfession, formatConfession }
+module.exports = { validateNote, formatNote }
