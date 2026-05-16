@@ -1,17 +1,17 @@
-const { validateNote } = require('../../../server/src/utils/confessionUtils')
+const { validateNote, VALIDATION_RULES } = require('../../../server/src/utils/noteUtils')
 
 describe('validateNote', () => {
   test('throws if text is empty', () => {
-    expect(() => validateNote('')).toThrow('Oops, you forgot to write your message! (*/ω＼*)')
+    expect(() => validateNote('')).toThrow(VALIDATION_RULES.ERRORS.EMPTY)
   })
 
   test('throws if text is only whitespace', () => {
-    expect(() => validateNote('     ')).toThrow('Oops, you forgot to write your message! (*/ω＼*)')
+    expect(() => validateNote('     ')).toThrow(VALIDATION_RULES.ERRORS.EMPTY)
   })
 
   test('throws if text exceeds 500 characters', () => {
-    const longText = 'a'.repeat(501)
-    expect(() => validateNote(longText)).toThrow('Sorry, your message is too long! Please keep it under 500 characters (o゜▽゜)o☆')
+    const longText = 'a'.repeat(VALIDATION_RULES.MAX_LENGTH + 1)
+    expect(() => validateNote(longText)).toThrow(VALIDATION_RULES.ERRORS.TOO_LONG)
   })
 
   test('does not throw for valid text', () => {
@@ -19,7 +19,7 @@ describe('validateNote', () => {
   })
 
   test('accepts text that is exactly 500 characters', () => {
-    const maxText = 'a'.repeat(500)
+    const maxText = 'a'.repeat(VALIDATION_RULES.MAX_LENGTH)
     expect(() => validateNote(maxText)).not.toThrow()
   })
 })

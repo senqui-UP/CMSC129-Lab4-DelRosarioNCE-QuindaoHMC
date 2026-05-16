@@ -1,9 +1,16 @@
+const VALIDATION_RULES = {
+  MAX_LENGTH: 500,
+  ERRORS: {
+    EMPTY: 'Oops, you forgot to write your message! (*/ω＼*)',
+    TOO_LONG: 'Sorry, your message is too long! Please keep it under 500 characters (o゜▽゜)o☆',
+  },
+}
 function validateNote(text) {
   if (!text || text.trim() === '') {
-    throw new Error('Oops, you forgot to write your message! (*/ω＼*)')
+    throw new Error(VALIDATION_RULES.ERRORS.EMPTY)
   }
-  if (text.length > 500) {
-    throw new Error('Sorry, your message is too long! Please keep it under 500 characters (o゜▽゜)o☆')
+  if (text.length > VALIDATION_RULES.MAX_LENGTH) {
+    throw new Error(VALIDATION_RULES.ERRORS.TOO_LONG)
   }
 }
 
@@ -14,4 +21,4 @@ function formatNote(text) {
   }
 }
 
-module.exports = { validateNote, formatNote }
+module.exports = { validateNote, formatNote, VALIDATION_RULES }
