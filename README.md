@@ -1,4 +1,4 @@
-<h1 align="center">_hopecore_</h1>
+<h1 align="center"><i>hopecore</i></h1>
 
 ---
 ## 📖 Overview   
@@ -10,18 +10,19 @@
 - **System / E2E Testing**: Cypress
 
   <p align="center">
-    Inspired by the Unsent Project, hopecore is a web archive of hopeful anonymous messages to send to yourself or others. Users can also edit and delete their submissions. Created in MERN using a testing driven development.
+  <br>
+    Inspired by the Unsent Project, <i>hopecore</i> is a web archive of hopeful anonymous notes to send to yourself or others. Users can also edit and delete their submissions. Created in MERN using a Test Driven Development.
   </p>
 
 #### User Stories
 
-* As a user, I want to anonymously submit confessions so that I can share more kindness to the world.
+* As a user, I want to anonymously submit notes so that I can share more kindness to the world.
 * As a user, I want to browse all of the previous submissions so that I can see all of the previous messages by others.
 * As a user, I want to edit my submissions so that I can update it with new information.
 
 ---
 
-## Installation
+## Installation and Setup
 
 ```bash
 # clone repository
@@ -32,9 +33,16 @@ cd <project-folder>
 
 # install dependencies
 npm install
+npm install --save-dev @eslint/js
+
+# run tests
+npm run test:unit   #Unit Validation Testing
+                    #Integration Testing
+                    #Systems Testing
 
 # run project
 npm run dev
+
 ```
 
 ---
@@ -43,35 +51,47 @@ npm run dev
 
 The **Testing Pyramid** strategy is used to ensure application reliability, focusing on high coverage at the unit level and critical path validation at the E2E level.
 
-#### 1. Unit Testing (The Foundation)
+#### 1. Unit Validation
 
 * **Tools:** `Jest` + `React Testing Library`
 * **Focus:** Individual components, utility functions, and Mongoose models.
-* **Strategy:**
-* **Frontend:** Test component behavior (e.g., ensuring the confession form updates state on input) rather than implementation details.
-* **Backend:** Test business logic and data validation rules in isolation using mocks for database dependencies.
+
+1. A message can’t be empty (validation test)
+2. A message cannot exceed 500 characters (validation test)
+3. A message must have time/date stamp (validation test)
+
+**Tests:**  
+* **`validateConfession`**
+  - Rejects an empty string; prevents blank submissions
+  - Rejects whitespace-only strings; prevents invisible submissions
+  - Rejects text exceeding 500 characters; enforces the message length limit
+  - Accepts valid text; confirms the happy path works
+  - Accepts text at exactly 500 characters to ensure the boundary is inclusive
+
+* **`formatConfession`**
+  - Returns the original text in the output object
+  - Attaches a `createdAt` field automatically, no user input required
+  - `createdAt` is a valid Date. Not null, not malformed
+  - `createdAt` reflects the time of creation and not a hardcoded value
 
 
-
-#### 2. Integration Testing (The Bridge)
+#### 2. Integration Testing
 
 * **Tools:** `Jest` + `Supertest`
 * **Focus:** API endpoints and Database interactions.
-* **Strategy:**
-* Validate the communication between Express routes and MongoDB.
-* Use a dedicated **test database** (e.g., MongoDB Memory Server) to ensure tests are isolated and do not pollute production data.
-* Verify CRUD operations: ensure `POST` creates a confession and `DELETE` removes the specific record identified by the unique ID.
 
+1. Creates a confession and returns 201
+2. Returns an array of confessions with 200
 
+**Tests:**
 
-#### 3. System / E2E Testing (The User's View)
+#### 3. System / E2E Testing 
 
 * **Tools:** `Cypress`
 * **Focus:** The "Happy Path" and full user workflows.
-* **Strategy:**
-* Simulate real user sessions: from landing on the wall, submitting a confession, to seeing it appear in real-time.
-* Test persistence: verify that refreshing the page still displays the submitted data.
-* Validate the anonymous editing logic to ensure users can only modify their own entries.
+
+1. As a user, I want to anonymously submit confessions so that I can share them without it being obvious it was from me.
+
 
 
 ### 🛠️ TDD Workflow
@@ -85,5 +105,11 @@ Using the **Red-Green-Refactor** cycle for every feature:
 ---
 
 ## Screenshots
+Unit Validation Green Phase  
+CI pipeline showing failing tests before implementation  
+![Unit Validation](/.github/UnitValidation_Red.png "Unit Validation Red Phase")
 
-To be added in a future commit.
+
+Unit Validation Green Phase  
+9 tests passing after implementing `validateConfession` and `formatConfession`  
+![Unit Validation](/.github/UnitValidation_Green.png "Unit Validation Green Phase")
