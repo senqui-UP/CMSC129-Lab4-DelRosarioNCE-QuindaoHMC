@@ -44,7 +44,7 @@ describe('Delete a note', () => {
     cy.visit('/')
     cy.get('[data-testid="note-input"]').type('This note will be deleted')
     cy.get('[data-testid="submit-button"]').click()
-    cy.get('[data-testid="note-card"]').first().find('[data-testid="delete-button"]').click()
+    cy.contains('[data-testid="note-card"]','This note will be deleted').find('[data-testid="delete-button"]').click()
     cy.get('[data-testid="note-card"]').should('not.contain', 'This note will be deleted')
   })
 })

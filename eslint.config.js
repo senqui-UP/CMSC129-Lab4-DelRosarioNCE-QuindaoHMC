@@ -30,6 +30,21 @@ module.exports = [
     },
   },
   {
+    files: ['tests/system/**/*.cy.js'],
+    languageOptions: {
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        before: 'readonly',
+        beforeEach: 'readonly',
+        after: 'readonly',
+        afterEach: 'readonly',
+        cy: 'readonly',
+        Cypress: 'readonly',
+      },
+    },
+  },
+  {
     ignores: ['node_modules/**', 'client/**'],
   },
 ]
