@@ -34,7 +34,10 @@ cd <project-folder>
 
 # install dependencies
 npm install
+
+# dependencies for testing
 npm install --save-dev @eslint/js
+npm install --save-dev start-server-and-test
 
 # run tests
 npm run test:unit   #Unit Validation Testing

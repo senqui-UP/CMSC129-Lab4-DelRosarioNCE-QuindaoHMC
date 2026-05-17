@@ -20,3 +20,11 @@ jobs:
       - run: npm run lint
       - run: npm run test:unit
       - run: npm run test:integration
+      - run: npm run test:e2e
+
+      - name: Run System Tests (Cypress)
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm run dev
+          command: npm run test:e2e
+          wait-on: 'http://localhost:5173'
