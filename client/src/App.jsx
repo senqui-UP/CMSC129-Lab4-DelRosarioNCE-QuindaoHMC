@@ -89,7 +89,7 @@ export default function App() {
   const toastTimer = useRef(null);
 
   useEffect(() => {
-    fetch("/api/notes")
+      fetch(`${API_BASE}/notes`)
       .then((res) => res.json())
       .then((data) => setNotes(data))
       .catch(() => setNotes([]));
@@ -104,7 +104,7 @@ export default function App() {
   function handleSubmit(e) {
     e?.preventDefault?.();
     if (!msgInput.trim()) return;
-    fetch("/api/notes", {
+    fetch(`${API_BASE}/notes`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: combine(toInput, msgInput) }),
@@ -134,7 +134,7 @@ export default function App() {
 
   function handleSave(id) {
     if (!editMsg.trim()) return;
-    fetch(`/api/notes/${id}`, {
+    fetch(`${API_BASE}/notes/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: combine(editTo, editMsg) }),
@@ -148,7 +148,7 @@ export default function App() {
   }
 
   function handleDelete(id) {
-    fetch(`/api/notes/${id}`, { method: "DELETE" }).then(() => {
+    fetch(`${API_BASE}/notes/${id}`, { method: "DELETE" }).then(() => {
       setNotes((prev) => prev.filter((n) => n._id !== id));
       showToast("delete");
     });
