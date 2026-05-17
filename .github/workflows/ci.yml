@@ -16,14 +16,35 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run test:unit
-      - run: npm run test:integration
-      #e2e tests are run in a separate job to ensure the server is running before the tests are executed
+      # Install dependencies and run linting
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+
+      # tests
+      - name: Unit Tests
+        run: npm run test:unit
+
+      - name: Integration Tests
+        run: npm run test:integration
+ 
       - name: Run System Tests (Cypress)
         uses: cypress-io/github-action@v6
         with:
           start: npm run dev
           command: npm run test:e2e
-          wait-on: 'http://localhost:5173'
+          wait-on: "http://localhost:5173"
+ 
+  deploy:
+    name: Deploy to Render
+    needs: test                   # ← only runs if ALL tests pass
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Trigger Render deploy hook
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" \
+            "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" | grep -q "^2" \
+            && echo "Deploy triggered successfully" \
+            || (echo "Deploy hook failed" && exit 1)

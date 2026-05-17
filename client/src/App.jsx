@@ -1,3 +1,8 @@
+const API_BASE =
+  import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api`
+    : "/api";
+    
 import { useState, useEffect, useRef } from "react";
 
 const COLORS = ["butter", "peach", "blush", "mint", "lilac", "sky"];
